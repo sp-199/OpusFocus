@@ -1,0 +1,14 @@
+# OpusFocus sample meeting · weekly sync · 2026-10-14 · fictional speakers
+[00:00:05] Nino: Okay, let's start. Agenda is the transcript upload, the summary screen, and the demo.
+[00:00:21] Giorgi: Upload works for MP3 files now. WAV still fails on files over ten minutes.
+[00:00:40] Nino: Is that the speech-to-text limit or ours?
+[00:00:52] Giorgi: Ours. We read the whole file into memory. I'll fix the WAV upload by Friday.
+[00:01:15] Mariam: For the summary screen, users want the action items at the top, not at the bottom.
+[00:01:31] Nino: Agreed. Mariam, can you move the action items above the summary?
+[00:01:40] Mariam: Sure, I will do that before Thursday.
+[00:02:02] Giorgi: We also need a privacy note telling people the meeting is recorded.
+[00:02:18] Nino: Good point. Maybe we should add a consent checkbox at some point.
+[00:02:35] Mariam: The demo is next Tuesday at 18:00 in room B204.
+[00:02:50] Nino: I'll book the room and send the invite today.
+[00:03:10] Giorgi: Last thing, the token cost for long meetings looks high, around six thousand tokens in.
+[00:03:28] Nino: Let's measure it properly next week. Okay, thanks everyone.
