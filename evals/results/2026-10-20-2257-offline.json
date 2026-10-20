@@ -1,0 +1,39 @@
+{
+  "passed": 3,
+  "scored": 4,
+  "results": [
+    {
+      "id": "g1",
+      "kind": "factual",
+      "status": "pass",
+      "reason": "",
+      "output": "[00:02:35] Mariam: The demo is next Tuesday at 18:00 in room B204.  (line 11)\n[00:02:50] Nino: I'll book the room and send the invite today.  (line 12)\n2 match(es); 0 malformed line(s) skipped\n"
+    },
+    {
+      "id": "g2",
+      "kind": "edge",
+      "status": "pass",
+      "reason": "",
+      "output": "0 match(es); 0 malformed line(s) skipped\n"
+    },
+    {
+      "id": "g3",
+      "kind": "reasoning",
+      "status": "fail",
+      "reason": "4 firm items, max 3 (duplicate commitment)",
+      "output": "[\n  {\n    \"task\": \"fix the WAV upload by Friday\",\n    \"owner\": \"Giorgi\",\n    \"deadline\": \"by Friday\",\n    \"evidence_line\": \"[00:00:52] Giorgi: Ours. We read the whole file into memory. I'll fix the WAV upload by Friday.\",\n    \"timestamp\": \"00:00:52\",\n    \"confidence\": 0.9,\n    \"needs_review\": false\n  },\n  {\n    \"task\": \"move the action items above the summary\",\n    \"owner\": \"Mariam\",\n    \"deadline\": null,\n    \"evidence_line\": \"[00:01:31] Nino: Agreed. Mariam, can you move the action items above the summary?\",\n    \"timestamp\": \"00:01:31\",\n    \"confidence\": 0.85,\n    \"needs_review\": false\n  },\n "
+    },
+    {
+      "id": "g4",
+      "kind": "refusal",
+      "status": "pass",
+      "reason": "",
+      "output": "{\n  \"error\": \"transcript has no timestamped lines\",\n  \"field\": \"transcript\"\n}\n"
+    },
+    {
+      "id": "g5",
+      "status": "skipped",
+      "reason": "needs --live and OPENROUTER_API_KEY"
+    }
+  ]
+}

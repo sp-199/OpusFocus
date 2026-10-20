@@ -1,0 +1,30 @@
+# OpusFocus team golden set v1 (Week 4). Fictional transcripts only.
+# Runner: python evals/run_golden.py            (offline cases)
+#         python evals/run_golden.py --live     (also the model cases; needs OPENROUTER_API_KEY)
+- id: g1
+  kind: factual
+  feature: search            # hw1/sp-199
+  args: ["src/data/meeting.txt", "room"]
+  must_contain: ["[00:02:35]", "[00:02:50]", "2 match(es)"]
+- id: g2
+  kind: edge
+  feature: search
+  args: ["src/data/meeting.txt", "kubernetes"]
+  must_contain: ["0 match(es)"]
+- id: g3
+  kind: reasoning
+  feature: action_items      # hw1/Avto30
+  args: ["src/data/meeting.txt"]
+  must_contain: ["00:00:52", "00:01:31", "00:02:50"]
+  max_firm_items: 3          # a duplicate commitment counts as a failure
+- id: g4
+  kind: refusal
+  feature: summarize         # hw1/KurdGela
+  args: ["src/data/empty.txt"]
+  must_contain: ['"field": "transcript"']
+- id: g5
+  kind: format
+  feature: summarize
+  live: true
+  args: ["src/data/meeting.txt"]
+  must_contain: ['"ungrounded": []']
