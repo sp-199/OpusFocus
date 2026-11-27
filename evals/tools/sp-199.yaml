@@ -1,0 +1,44 @@
+# HW2 tool golden set · search_transcript · owner: sp-199
+# Runs in CI through tests/test_tool_golden.py. No model, no key.
+tool_owner: sp-199
+cases:
+  - id: s1
+    type: normal
+    why: the everyday case, a word said twice in a meeting the user attended, case-insensitive
+    tool: search_transcript
+    caller: u-nino
+    arguments: {meeting_id: mtg-001, query: ROOM}
+    expect: ok
+    result_has: {meeting_id: mtg-001, count: 2}
+  - id: s2
+    type: normal
+    why: a different attendee, filtered to one speaker; a word nobody said returns zero hits, not an error
+    tool: search_transcript
+    caller: u-giorgi
+    arguments: {meeting_id: mtg-001, query: kubernetes, speaker: Giorgi}
+    expect: ok
+    result_has: {count: 0, hits: []}
+  - id: s3
+    type: normal
+    why: a meeting id that does not exist is refused, and the message tells the model to ask the user
+    tool: search_transcript
+    caller: u-nino
+    arguments: {meeting_id: mtg-999, query: room}
+    expect: refused
+    error_has: [no meeting mtg-999, ask the user]
+  - id: s4
+    type: bad-input
+    why: a one-letter query is too short to be useful and never reaches the search
+    tool: search_transcript
+    caller: u-nino
+    arguments: {meeting_id: mtg-001, query: r}
+    expect: refused
+    error_has: [invalid arguments, query]
+  - id: s5
+    type: adversarial
+    why: a path smuggled into the meeting id to read a file outside data/meetings; the pattern stops it before any path is built
+    tool: search_transcript
+    caller: u-nino
+    arguments: {meeting_id: "../../.env", query: KEY}
+    expect: refused
+    error_has: [invalid arguments, meeting_id]
