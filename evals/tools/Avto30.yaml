@@ -1,0 +1,44 @@
+# HW2 tool golden set · list_action_items · owner: Avto30
+# Runs in CI through tests/test_tool_golden.py. No model, no key.
+tool_owner: Avto30
+cases:
+  - id: a1
+    type: normal
+    why: the everyday case; firm items only, and the hedged consent-checkbox line is held back for review
+    tool: list_action_items
+    caller: u-mariam
+    arguments: {meeting_id: mtg-001}
+    expect: ok
+    result_has: {count: 4, hidden_for_review: 1}
+  - id: a2
+    type: normal
+    why: a different attendee asks to see the review items too, capped by limit
+    tool: list_action_items
+    caller: u-ana
+    arguments: {meeting_id: mtg-002, include_review: true, limit: 5}
+    expect: ok
+    result_has: {count: 1, hidden_for_review: 0}
+  - id: a3
+    type: normal
+    why: a meeting the caller did not attend is refused with the same words as a missing one, so its existence does not leak
+    tool: list_action_items
+    caller: u-ana
+    arguments: {meeting_id: mtg-001}
+    expect: refused
+    error_has: [no meeting mtg-001, ask the user]
+  - id: a4
+    type: bad-input
+    why: a limit of zero is out of range and never reaches the extractor
+    tool: list_action_items
+    caller: u-nino
+    arguments: {meeting_id: mtg-001, limit: 0}
+    expect: refused
+    error_has: [invalid arguments, limit]
+  - id: a5
+    type: adversarial
+    why: a confused model or an attacker names another user to read a meeting the caller did not attend; the contract has no user field, so the call is refused before anything is read
+    tool: list_action_items
+    caller: u-ana
+    arguments: {meeting_id: mtg-001, user: u-nino}
+    expect: refused
+    error_has: [invalid arguments, user]
