@@ -31,6 +31,7 @@ class ListActionItems(Contract):
     meeting_id: MeetingId
     include_review: bool = False
     limit: Limit = 10
+    model_config = {"extra": "ignore"}
 
 
 class ActionItem(BaseModel):
