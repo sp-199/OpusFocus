@@ -20,7 +20,7 @@ Speaker = Annotated[str, Field(pattern=r"^[A-Za-z][A-Za-z-]{0,29}$", description
 
 class SearchTranscript(Contract):
     """Find the lines in one of the user's meetings that contain some words, with timestamps. Reads only."""
-    meeting_id: MeetingId
+    meeting_id: str
     query: Query
     speaker: Speaker | None = None
 
