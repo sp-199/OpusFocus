@@ -1,0 +1,4 @@
+# fictional meeting with no commitments in it
+[00:00:02] Nino: This is just a dry run of the demo, nothing to decide.
+[00:00:20] Ana: The upload screen looks fine on my laptop.
+[00:00:41] Nino: Same here. See you on Tuesday.
