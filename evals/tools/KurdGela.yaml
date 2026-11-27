@@ -1,0 +1,44 @@
+# HW2 tool golden set · add_highlight · owner: KurdGela
+# Runs in CI through tests/test_tool_golden.py. No model, no key. Each case starts with no stored highlights.
+tool_owner: KurdGela
+cases:
+  - id: h1
+    type: normal
+    why: the everyday case, an attendee pins a note to a line that exists; the result quotes the line
+    tool: add_highlight
+    caller: u-nino
+    arguments: {meeting_id: mtg-001, timestamp: "00:02:35", note: demo time and room}
+    expect: ok
+    result_has: {status: saved, total_in_meeting: 1, line: "Mariam: The demo is next Tuesday at 18:00 in room B204."}
+  - id: h2
+    type: normal
+    why: a different user in a different meeting; spoken instructions in the transcript are only quoted back as data
+    tool: add_highlight
+    caller: u-levan
+    arguments: {meeting_id: mtg-002, timestamp: "00:00:44", note: Ana shortens the hero text}
+    expect: ok
+    result_has: {status: saved, timestamp: "00:00:44"}
+  - id: h3
+    type: normal
+    why: a timestamp with no line is refused, and the message tells the model which tool finds the right one
+    tool: add_highlight
+    caller: u-nino
+    arguments: {meeting_id: mtg-001, timestamp: "00:09:59", note: no such line}
+    expect: refused
+    error_has: [no line at 00:09:59, search_transcript]
+  - id: h4
+    type: bad-input
+    why: a note over 200 characters is refused before anything is stored
+    tool: add_highlight
+    caller: u-nino
+    arguments: {meeting_id: mtg-001, timestamp: "00:00:52", note: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+    expect: refused
+    error_has: [invalid arguments, note]
+  - id: h5
+    type: adversarial
+    why: the model tries to write into another user's notes by naming them; identity comes from the session, the contract has no user field, so nothing is stored
+    tool: add_highlight
+    caller: u-nino
+    arguments: {meeting_id: mtg-001, timestamp: "00:00:52", note: Giorgi owns the WAV fix, user: u-giorgi}
+    expect: refused
+    error_has: [invalid arguments, user]
