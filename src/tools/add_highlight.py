@@ -28,6 +28,7 @@ class AddHighlight(Contract):
     meeting_id: MeetingId
     timestamp: Timestamp
     note: Note
+    model_config = {"extra": "ignore"}
 
 
 class HighlightResult(BaseModel):
